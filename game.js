@@ -3,6 +3,9 @@ const grid = document.querySelector('.Grid');
 let currentPlayerIndex = 1680;
 //The width is 50 20x20 squares that equals 1000px width
 const width = 50;
+let direction = 1;
+let invaderCourse;
+let goingRight = true;
 
 //First we want to start out by creating the board in which the game will be played
 function battleField(){
@@ -37,12 +40,18 @@ function draw(){
     for(let i=0; i < invaders.length; i++){
     squares[invaders[i]].classList.add('invader')}
 }
+function removeInvader(){
+    //the for loop will create a class invader, styled through CSS, in each index specified in the Array we originally assigned with in the squares grid (battleField)
+    for(let i=0; i < invaders.length; i++){
+    squares[invaders[i]].classList.remove('invader')}
+}
 draw();
 
 
 
 //Move User
 //We take in an event as a parameter from EventListener('keydown', () ) and the callback function is moveUser 
+document.addEventListener('keydown', moveUser)
 function moveUser(e){
     //we want to first remove the square in which we have drawn the User and use a switch statement to compare what event is triggered
     squares[currentPlayerIndex].classList.remove('Player')
@@ -60,10 +69,38 @@ function moveUser(e){
     }
     squares[currentPlayerIndex].classList.add('Player')
 }
-document.addEventListener('keydown', moveUser)
+
 
 function moveInvaders(){
     //We will define and store the edges 
     // We know if our first [0] invader is at the left edge because all the values % will give us a remainder 0
+    const leftEdge = invaders[0] % width === 0;
+    //we take the length of invaders minus index 1 and compare to the width of the battlefield to find the right edge of the board 
+    const rightEdge = invaders[invaders.length - 1] % width === width -1;
 
+    removeInvader();
+
+    if(rightEdge && goingRight){
+        for(let i = 0; i < invaders.length; i++){
+            invaders[i] += width + 1
+            direction = -1;
+            goingRight = false;
+        }
+    }
+    if(leftEdge && !goingRight){
+        for(let i = 0; i < invaders.length; i++){
+            invaders[i] += width - 1;
+            direction = 1;
+            goingRight = true;
+        }
+    }
+ for(let i = 0; i < invaders.length; i++){
+        invaders[i] += direction;
+    }
+    draw();
+    if(squares[currentPlayerIndex].classList.contains('invader', 'Player')){
+        clearInterval(invaderCourse);
+    }
 }
+
+invaderCourse = setInterval(moveInvaders, 500);
