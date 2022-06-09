@@ -20,7 +20,7 @@ body{
     height: 20px;
 }
 .invader{
-    background-color: purple;
+    background-image: url('assets/Invader.png');
     border-radius: 10px;
 
 }
@@ -28,4 +28,7 @@ body{
 .Player{
     background-color: red;
     border-radius: 10px;
+}
+.laser{
+    background-color: orange;
 }

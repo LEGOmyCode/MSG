@@ -1,8 +1,11 @@
-//Declare Variables
+//Declare Variables that will remain constant (immutable)
 const grid = document.querySelector('.Grid');
-let currentPlayerIndex = 1680;
 //The width is 50 20x20 squares that equals 1000px width
 const width = 50;
+const resultsDisplay = document.querySelector('.Results')
+
+//We will use these values throughout our code and they need to be mutable
+let currentPlayerIndex = 1680;
 let direction = 1;
 let invaderCourse;
 let goingRight = true;
@@ -25,18 +28,25 @@ const squares = Array.from(document.querySelectorAll('.Grid div'))
 
 
 //This will be the indices that our invaders will be in
-const invaders = [
-    0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,
-    50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,
-    100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130
-]
-
+const invaders = []
+  for (let i = 0; i <= 130; i++) {
+        if(i <= 30){
+        invaders.push(i);
+        }
+        if(i >=50 && i <= 80){
+        invaders.push(i)
+        }
+        if(i >=100 && i <= 130){
+        invaders.push(i)
+        }
+    }
 //The Function draw will insert the array of invaders into the array of squares that have been previously established
 //According to our CSS file it will be as such
 function draw(){
     //The first line of code will generate the user
     squares[currentPlayerIndex].classList.add('Player')
     //the for loop will create a class invader, styled through CSS, in each index specified in the Array we originally assigned with in the squares grid (battleField)
+  
     for(let i=0; i < invaders.length; i++){
     squares[invaders[i]].classList.add('invader')}
 }
@@ -67,6 +77,7 @@ function moveUser(e){
                 currentPlayerIndex +=1;}
             break;
     }
+    //Whichever square the current player ocuppies it will add the class Player
     squares[currentPlayerIndex].classList.add('Player')
 }
 
@@ -80,6 +91,10 @@ function moveInvaders(){
 
     removeInvader();
 
+
+    //keeping invaders in the battlefield
+    //In moveInvaders() we defined left and right edges and we want to make sure the invader stays within the right and left edges and account for the direction
+    //and make changes accordingly. Direction will either increment or decrement the indices of the invaders within the Array of squares (battle field)
     if(rightEdge && goingRight){
         for(let i = 0; i < invaders.length; i++){
             invaders[i] += width + 1
@@ -87,6 +102,8 @@ function moveInvaders(){
             goingRight = false;
         }
     }
+    //We do the same for the left hand side of the battlefield however we want to inclue !goingRight (notFalse) statement when going left because at the end of the previous statement 
+    //we made goingRight = false. Therefore, we want to make that variable true at the end because we will be changing directions to the right after reaching the left edge
     if(leftEdge && !goingRight){
         for(let i = 0; i < invaders.length; i++){
             invaders[i] += width - 1;
@@ -94,13 +111,49 @@ function moveInvaders(){
             goingRight = true;
         }
     }
- for(let i = 0; i < invaders.length; i++){
+    //This is where we assign the direction to the invaders indices. Such that if we move one invader the following will also be moved.
+    for(let i = 0; i < invaders.length; i++){
         invaders[i] += direction;
     }
+
     draw();
+
+    //Hit Player
+    //We check the squares and if any invader and player are on the same square it is a hit and Game Over
     if(squares[currentPlayerIndex].classList.contains('invader', 'Player')){
+        //We want to make sure the Invaders stop from advancing by clearing the call for invaderCourse
         clearInterval(invaderCourse);
+        //We display in the Results html GAME OVER
+        resultsDisplay.innerHTML = 'GAME OVER'
+    }
+    //Hit bottom
+    //We also want to check if the invaders hit bottom/landed. In which the Game will also be Over
+    for(let i = 0; i < invaders.length; i++){
+        if(invaders[i] > squares.length){
+            resultsDisplay.innerHTML = 'GAME OVER';
+            clearInterval(invaders);
+        }
     }
 }
 
-invaderCourse = setInterval(moveInvaders, 500);
+invaderCourse = setInterval(moveInvaders, 50);
+//This function will display and logic the "laser" that Player will shoot to "destroy" the invaders
+function laser(e){
+    let laserID;
+    //We want the laser to appear fromt he players location.
+    let currentLaserIndex = currentPlayerIndex;
+    function moveLaser(){
+        //We will remove and add the laser and decrement 50 (width) such that it travels vertically
+        squares[currentLaserIndex].classList.remove('laser');
+        currentLaserIndex -= width;
+        squares[currentLaserIndex].classList.add('laser');
+    }
+    switch(e.key){
+        //We pass the (e)vent listener of a keydown and in the case of ArrowuU we call the moveLaser() function every 100 miliseconds
+        case 'ArrowUp':
+            laserID = setInterval(moveLaser, 100)
+            break;
+        }
+}
+document.addEventListener('keydown', laser)
+
