@@ -26,34 +26,51 @@ battleField();
 //each can be addressed by the const squares followed by the indice  
 const squares = Array.from(document.querySelectorAll('.Grid div'))
 
+class Invader{
+    constructor(position) {
+        this.position = position;
+        this.styleClass = this.getRandomInvaderClass()
+    }
+
+getRandomInvaderClass()
+{
+    const invaderClasses = ['invader', 'invaderSuper']
+
+    return invaderClasses[Math.round(Math.random())]
+}
+}
 
 //This will be the indices that our invaders will be in
 const invaders = []
   for (let i = 0; i <= 130; i++) {
         if(i <= 30){
-        invaders.push(i);
+        invaders.push(new Invader(i));
         }
         if(i >=50 && i <= 80){
-        invaders.push(i)
+        invaders.push(new Invader(i));
         }
         if(i >=100 && i <= 130){
-        invaders.push(i)
+        invaders.push(new Invader(i));
         }
     }
 //The Function draw will insert the array of invaders into the array of squares that have been previously established
 //According to our CSS file it will be as such
 function draw(){
     //The first line of code will generate the user
-    squares[currentPlayerIndex].classList.add('Player')
+    squares[currentPlayerIndex].setAttribute('class', 'Player')
     //the for loop will create a class invader, styled through CSS, in each index specified in the Array we originally assigned with in the squares grid (battleField)
   
     for(let i=0; i < invaders.length; i++){
-    squares[invaders[i]].classList.add('invader')}
+    squares[invaders[i].position].setAttribute('class', invaders[i].styleClass)
+    }
 }
+
 function removeInvader(){
     //the for loop will create a class invader, styled through CSS, in each index specified in the Array we originally assigned with in the squares grid (battleField)
     for(let i=0; i < invaders.length; i++){
-    squares[invaders[i]].classList.remove('invader')}
+    squares[invaders[i].position].removeAttribute('class')
+    //squares[invaders[i]].remove('invader')
+}
 }
 draw();
 
@@ -85,9 +102,9 @@ function moveUser(e){
 function moveInvaders(){
     //We will define and store the edges 
     // We know if our first [0] invader is at the left edge because all the values % will give us a remainder 0
-    const leftEdge = invaders[0] % width === 0;
+    const leftEdge = invaders[0].position % width === 0;
     //we take the length of invaders minus index 1 and compare to the width of the battlefield to find the right edge of the board 
-    const rightEdge = invaders[invaders.length - 1] % width === width -1;
+    const rightEdge = invaders[invaders.length - 1].position % width === width -1;
 
     removeInvader();
 
@@ -97,7 +114,7 @@ function moveInvaders(){
     //and make changes accordingly. Direction will either increment or decrement the indices of the invaders within the Array of squares (battle field)
     if(rightEdge && goingRight){
         for(let i = 0; i < invaders.length; i++){
-            invaders[i] += width + 1
+            invaders[i].position += width + 1
             direction = -1;
             goingRight = false;
         }
@@ -106,14 +123,14 @@ function moveInvaders(){
     //we made goingRight = false. Therefore, we want to make that variable true at the end because we will be changing directions to the right after reaching the left edge
     if(leftEdge && !goingRight){
         for(let i = 0; i < invaders.length; i++){
-            invaders[i] += width - 1;
+            invaders[i].position += width - 1;
             direction = 1;
             goingRight = true;
         }
     }
     //This is where we assign the direction to the invaders indices. Such that if we move one invader the following will also be moved.
     for(let i = 0; i < invaders.length; i++){
-        invaders[i] += direction;
+        invaders[i].position += direction;
     }
 
     draw();
@@ -129,7 +146,7 @@ function moveInvaders(){
     //Hit bottom
     //We also want to check if the invaders hit bottom/landed. In which the Game will also be Over
     for(let i = 0; i < invaders.length; i++){
-        if(invaders[i] > squares.length){
+        if(invaders[i].position > squares.length){
             resultsDisplay.innerHTML = 'GAME OVER';
             clearInterval(invaders);
         }

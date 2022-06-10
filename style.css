@@ -1,7 +1,7 @@
 body{
    display: flex;
    justify-content: center;
-   padding: 50px;
+   padding: 30px;
    background-color: black;
 
 }
@@ -10,9 +10,9 @@ body{
     flex-wrap: wrap;
     width: 1000px;
     height: 700px;
-    border: 3px solid black;
-    background-image: url('assets/Meteor.png');
-    background-size: cover;
+    background-image: url('assets/World.png');
+    background-position: top;
+    
 }
 
 .Grid div{
@@ -20,9 +20,13 @@ body{
     height: 20px;
 }
 .invader{
-    background-image: url('assets/Invader.png');
+    background-color: purple;
     border-radius: 10px;
 
+}
+.invaderSuper{
+    background-color: yellow;
+    border-radius: 10px;
 }
 
 .Player{
