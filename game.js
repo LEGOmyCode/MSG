@@ -164,6 +164,16 @@ function laser(e){
         squares[currentLaserIndex].classList.remove('laser');
         currentLaserIndex -= width;
         squares[currentLaserIndex].classList.add('laser');
+
+
+        
+            if (invaders.find((input) => input.position == currentLaserIndex) != undefined){
+                invaders.find((input) => input.position == currentLaserIndex).styleClass = ''
+                }
+            
+
+
+
     }
     switch(e.key){
         //We pass the (e)vent listener of a keydown and in the case of ArrowuU we call the moveLaser() function every 100 miliseconds
