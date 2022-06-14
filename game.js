@@ -1,6 +1,5 @@
-//Declare Variables that will remain constant (immutable)
+//Declare Immutable Variables
 const grid = document.querySelector('.Grid');
-//The width is 50 20x20 squares that equals 1000px width
 const width = 50;
 const resultsDisplay = document.querySelector('.Results')
 
@@ -10,8 +9,8 @@ let direction = 1;
 let invaderCourse;
 let goingRight = true;
 
-//First we want to start out by creating the board in which the game will be played
-function battleField(){
+//Creating the playing battlefield board 
+function battleField (){
 //This will be a for loop that will create a grid of div elements 
 for (let i=0; i < 1750; i++){
     const square = document.createElement('div')
@@ -20,12 +19,12 @@ for (let i=0; i < 1750; i++){
 }}
 battleField();
 
-
 //Array.from will create an Array from all elements that have a Grid class or div tag 
 //such that my div elements that I created with the above iteration to make 20X20 div elements in a 1000 x 700 px board game
-//each can be addressed by the const squares followed by the indice  
+//each can be addressed by the const squares followed by the index 
 const squares = Array.from(document.querySelectorAll('.Grid div'))
 
+//Creating our Invaders with a constructor to allocate the position to an index number and randomizing the class from reg and super. 
 class Invader{
     constructor(position) {
         this.position = position;
@@ -58,15 +57,13 @@ const invaders = []
 function draw(){
     //The first line of code will generate the user
     squares[currentPlayerIndex].setAttribute('class', 'Player')
-    //the for loop will create a class invader, styled through CSS, in each index specified in the Array we originally assigned with in the squares grid (battleField)
-  
     for(let i=0; i < invaders.length; i++){
+        //we get the square from the grib we created along with the index number aka iteration and set the attribute with a class and call the const invaders[i].styleclass property which is a call function to the getrandominvaderclass function 
     squares[invaders[i].position].setAttribute('class', invaders[i].styleClass)
     }
 }
 
 function removeInvader(){
-    //the for loop will create a class invader, styled through CSS, in each index specified in the Array we originally assigned with in the squares grid (battleField)
     for(let i=0; i < invaders.length; i++){
     squares[invaders[i].position].removeAttribute('class')
     //squares[invaders[i]].remove('invader')

@@ -3,7 +3,7 @@ body{
    justify-content: center;
    padding: 30px;
    background-color: black;
-
+   background-image: url("assets/BackGroundImage.jpg");
 }
 .Grid{
     display: flex;
@@ -35,4 +35,7 @@ body{
 }
 .laser{
     background-color: orange;
+}
+h1{
+    color: white;
 }
