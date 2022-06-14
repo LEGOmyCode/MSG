@@ -1,21 +1,19 @@
+<!-- Basic HTML Boilerplate-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- We link our style.css to get our html color-->
     <link rel="stylesheet" href="style.css" />
-    <title>Independence Day</title>
+    <title>Invaders</title>
   </head>
   <body>
-    <header>
-      <ul>
-        <li><a href="author.html">Author</a></li>
-        <li>Credits</li>
-      </ul>
-    </header>
-    <h1 class="Results">0</h1>
+    <!-- We will be making the grid, results and all other functionality in the Javascript file named game.js-->
+    <h1 class="Results"></h1>
     <div class="Grid"></div>
+    <!-- We want to be sure that our script is at the end of the HTML body because it reads from top to bottom and we need the tagged elements above to be established before we reference them in game.js-->
     <script src="game.js"></script>
   </body>
 </html>

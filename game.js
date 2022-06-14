@@ -8,6 +8,7 @@ let currentPlayerIndex = 1680;
 let direction = 1;
 let invaderCourse;
 let goingRight = true;
+let results = 0;
 
 //Creating the playing battlefield board 
 function battleField (){
@@ -30,11 +31,12 @@ class Invader{
         this.position = position;
         this.styleClass = this.getRandomInvaderClass()
     }
-
+//This will generate the random class for invader and invaderSuper
 getRandomInvaderClass()
-{
+{//We make an array that holds two values in index 0 and 1
     const invaderClasses = ['invader', 'invaderSuper']
-
+//Math.random is bound by 0 and .9 and we round the decimal to either 0 or 1 depending if it is .5 and above for 1 or less than .5 for zero
+//and that should then return with the assigned class of invaderClasses index
     return invaderClasses[Math.round(Math.random())]
 }
 }
@@ -146,32 +148,33 @@ function moveInvaders(){
     }
 }
 
-invaderCourse = setInterval(moveInvaders, 50);
+invaderCourse = setInterval(moveInvaders, 100);
 //This function will display and logic the "laser" that Player will shoot to "destroy" the invaders
 function laser(e){
     let laserID;
     //We want the laser to appear fromt he players location.
     let currentLaserIndex = currentPlayerIndex;
     function moveLaser(){
+        //this will keep the errors down but will still throw TypeError: undefined when it hits the top of the grid
+        if(squares[currentLaserIndex] != undefined){
         //We will remove and add the laser and decrement 50 (width) such that it travels vertically
         squares[currentLaserIndex].classList.remove('laser');
         currentLaserIndex -= width;
         squares[currentLaserIndex].classList.add('laser');
 
-
         
             if (invaders.find((input) => input.position == currentLaserIndex) != undefined){
-                invaders.find((input) => input.position == currentLaserIndex).styleClass = ''
+                invaders.find((input) => input.position == currentLaserIndex).styleClass = '';
+                
                 }
             
-
-
+        }    
 
     }
     switch(e.key){
         //We pass the (e)vent listener of a keydown and in the case of ArrowuU we call the moveLaser() function every 100 miliseconds
         case 'ArrowUp':
-            laserID = setInterval(moveLaser, 100)
+            laserID = setInterval(moveLaser, 80)
             break;
         }
 }
