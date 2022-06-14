@@ -66,13 +66,9 @@ function draw(){
 function removeInvader(){
     for(let i=0; i < invaders.length; i++){
     squares[invaders[i].position].removeAttribute('class')
-    //squares[invaders[i]].remove('invader')
 }
 }
 draw();
-
-
-
 //Move User
 //We take in an event as a parameter from EventListener('keydown', () ) and the callback function is moveUser 
 document.addEventListener('keydown', moveUser)
