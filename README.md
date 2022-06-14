@@ -10,6 +10,8 @@ shoot laser with up arrow key
 Avoid Invaders
 Destroy all Invaders before they land
 
+---
+
 /_ Functionality issues _/
 
 - Laser travels through the invaders and doesn't stop upon impact
