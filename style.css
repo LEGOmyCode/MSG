@@ -1,52 +1,58 @@
-/* The body is evrything in HTML */
-body{
-   display: flex;
-   justify-content: center;
-   padding: 20px;
-   background-color: black;
-   background-image: url("assets/BackGroundImage.jpg");
-   
-}
-/* we want to allocate the Grid class with a space of 1000 x 700 pixels and make sure we use flew wrap so our divs that we are going to create are positions horizontally and then continue under a new line */
-.Grid{
-    display: flex;
-    flex-wrap: wrap;
-    width: 1000px;
-    height: 700px;
-    background-image: url('assets/World.png');
-    background-position: top;
-    margin: 100px;
-    
-}
-/* This will be the size of the divs inside the 1000 x 700 pixel Grid giving us 1750 div elements*/
-.Grid div{
-    width: 20px;
-    height: 20px;
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  background-color: #080708;
+  background-image: url("assets/BackGroundImage.jpg");
 }
 
-/* We just want to make the color and little round dots to represent the player and invaders*/
-.invader{
-    background-color: purple;
-    border-radius: 10px;
-
-}
-.invaderSuper{
-    background-color: yellow;
-    border-radius: 10px;
+.Banner {
+  border: 1px solid #f1f7ed;
 }
 
-.Player{
-    background-color: blue;
-    border-radius: 10px;
+.Grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  height: 700px;
+  background-image: url("assets/World.png");
+  background-position: top;
+  margin: 100px;
 }
-.laser{
-    background-color: limegreen;
-    border-radius: 10px;
+.Grid div {
+  width: 20px;
+  height: 20px;
 }
-h1{
-    color: white;
-    display: block;
+
+.invader {
+  background-color: #57467b;
+  border-radius: 10px;
 }
-.dead{
-    color: red;
+
+.invaderSuper {
+  background-color: #fdca40;
+  border-radius: 10px;
 }
+
+.Player {
+  background-color: #3772ff;
+  border-radius: 10px;
+}
+
+.laser {
+  background-color: #cafe48;
+  border-radius: 10px;
+}
+
+h1 {
+  color: #f1f7ed;
+  display: block;
+}
+
+.dead {
+  color: #ea526f;
+}
+
+/*# sourceMappingURL=style.css.map */

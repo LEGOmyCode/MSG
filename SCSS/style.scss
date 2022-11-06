@@ -1,0 +1,61 @@
+//scss variables
+$primary-color: #57467b;
+$secondary-color: #fdca40;
+$background-color: #080708;
+$hero: #3772ff;
+$border-radius: 10px;
+$laser: #cafe48;
+$twentypx: 20px;
+$explosion: #ea526f;
+$white: #f1f7ed;
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: $twentypx;
+  background-color: $background-color;
+  background-image: url("assets/BackGroundImage.jpg");
+}
+.Banner {
+  border: 1px solid $white;
+}
+.Grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  height: 700px;
+  background-image: url("assets/World.png");
+  background-position: top;
+  margin: 100px;
+  div {
+    width: $twentypx;
+    height: $twentypx;
+  }
+}
+
+.invader {
+  background-color: $primary-color;
+  border-radius: $border-radius;
+}
+.invaderSuper {
+  background-color: $secondary-color;
+  border-radius: $border-radius;
+}
+
+.Player {
+  background-color: $hero;
+  border-radius: $border-radius;
+}
+.laser {
+  background-color: $laser;
+  border-radius: $border-radius;
+}
+h1 {
+  color: $white;
+  display: block;
+}
+.dead {
+  color: $explosion;
+}
